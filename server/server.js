@@ -15,19 +15,31 @@ app.use(express.static(publicPath));
 io.on('connection', (socketio) => {
     console.log('New use Connected');
 
-    // socketio.emit('newMessage', {
-    //     from: "Yutana",
-    //     text: "See you then",
-    //     createAt: 1234
-    // });
+
+    socketio.emit('newMessage' , {
+       from:"Admin" ,
+       text:"Welcome to the chat app" ,
+        createAt : new Date().getTime()
+    });
+
+    socketio.broadcast.emit('newMessage' , {
+        from:"Admin" ,
+        text:"New User to joined" ,
+        createAt : new Date().getTime()
+    });
 
     socketio.on('createMessage', (message) => {
         console.log('createMessage : ', message);
-        io.emit('newMessage', {
-            from: "Bot",
-            text: "สบายดี คุณล่ะ สบายดีไหม",
-            createAt: new Date().getTime()
-        });
+        // io.emit('newMessage', {
+        //     from: "Bot",
+        //     text: "สบายดี คุณล่ะ สบายดีไหม",
+        //     createAt: new Date().getTime()
+        // });
+        // socketio.broadcast.emit('newMessage' , {
+        //     from:message.from,
+        //     text:message.text,
+        //     createAt:new Date().getTime()
+        // })
     });
 
     //DisConnect
