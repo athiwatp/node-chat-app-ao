@@ -20,20 +20,10 @@ io.on('connection', (socketio) => {
     socketio.emit('newMessage', generateMessage('Admin', 'Welcom to the chat app'));
     socketio.broadcast.emit('newMessage', generateMessage('Admin', 'New User to joined'));
 
-    // socketio.broadcast.emit('newMessage' , {
-    //     from:"Admin" ,
-    //     text:"New User to joined" ,
-    //     createAt : new Date().getTime()
-    // });
-
-    socketio.on('createMessage', (message) => {
+    socketio.on('createMessage', (message , callback) => {
         console.log('createMessage : ', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-        // socketio.broadcast.emit('newMessage' , {
-        //     from:message.from,
-        //     text:message.text,
-        //     createAt:new Date().getTime()
-        // })
+        callback('This is from Server');
     });
 
     //DisConnect
@@ -47,7 +37,7 @@ server.listen(port, () => {
     console.log(`Server is up on ${port}`);
 });
 
-console.log(publicPath);
+
 
 
 
