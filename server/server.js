@@ -15,32 +15,25 @@ app.use(express.static(publicPath));
 io.on('connection', (socketio) => {
     console.log('New use Connected');
 
+    // socketio.emit('newMessage', {
+    //     from: "Yutana",
+    //     text: "See you then",
+    //     createAt: 1234
+    // });
+
+    socketio.on('createMessage', (message) => {
+        console.log('createMessage : ', message);
+        io.emit('newMessage', {
+            from: "Bot",
+            text: "สบายดี คุณล่ะ สบายดีไหม",
+            createAt: new Date().getTime()
+        });
+    });
+
     //DisConnect
     socketio.on('disconnect', () => {
         console.log("User was disconnected ");
     });
-
-    //Send to Front End
-    // socketio.emit('newEmail', {
-    //     "from": "server => ",
-    //     "text": " text from server",
-    //     createAt: 123
-    // });
-
-    socketio.emit("sendMsg" , {
-        from:"Ao" ,
-        text:"สวัสดี สบายดีไหม ..." ,
-        createAt: 1234
-    })
-
-    //Receivce From Front End
-    socketio.on('createEmail' , (createEmail) => {
-        console.log("create Email " , createEmail);
-    });
-
-    socketio.on('receiveMsg' , (msg) => {
-        console.log("Server receiveMsg " , msg);
-    })
 });
 
 
