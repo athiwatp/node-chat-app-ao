@@ -3,21 +3,60 @@
 <head>
     <title> Welcon chat app</title>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 
-<body>
-<p>Welcom to chat app</p>
-<ol id="list-message"></ol>
-<form id="message-form">
-    <input type="text" name="message" placeholder="input text here . "/>
-    <button>Send</button>
-</form>
+<body class="chat">
 
-<button id="send-location">send location</button>
+    <div class="chat__sidebar">
+        <h3>Peple</h3>
+        <div id="users"></div>
+    </div>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
-<script src="/js/index.js"></script>
+    <div class="chat__main">
+
+        <ol id="list-message" class="chat__messages"></ol>
+
+        <div class="chat__footer">
+            <form id="message-form">
+                <input type="text" name="message" placeholder="message" autofocus autocomplete="off"/>
+                <button>Send</button>
+            </form>
+            <button id="send-location">send Location</button>
+        </div>
+
+    </div>
+
+    <script id="message-template" type="text/template">
+        <li class="message" >
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createAt}}</span>
+            </div>
+            <div class="message__body">
+                <p>{{text}}</p>
+            </div>
+        </li>
+    </script>
+    <script id="location-message-template" type="text/template">
+        <li class="message" >
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{createAt}}</span>
+            </div>
+            <div class="message__body">
+                <p>
+                    <a href="{{url}}" target="_blank">My Location</a>
+                </p>
+            </div>
+        </li>
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="/js/moment.js"></script>
+    <script src="/js/mustache.js"></script>
+    <script src="/js/index.js"></script>
+
 </body>
 </html>
